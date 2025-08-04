@@ -1,1 +1,28 @@
-body { font-family: sans-serif; background-color: #111; color: #eee; padding: 2em; }
+
+body {
+  font-family: Georgia, serif;
+  background: #fdf6e3;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+.container {
+  max-width: 600px;
+  width: 100%;
+}
+#game-log {
+  background: #fff;
+  border: 1px solid #ccc;
+  height: 300px;
+  overflow-y: auto;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+input, button {
+  font-size: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
