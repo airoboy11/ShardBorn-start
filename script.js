@@ -1,0 +1,1 @@
+console.log('ShardBorn RPG loaded');
