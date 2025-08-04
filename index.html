@@ -8,14 +8,39 @@
 </head>
 <body>
   <div class="container">
-    <h1>ShardBorn RPG</h1>
-    <div id="story" class="story-box">
-      <p>Welcome to ShardBorn. The world responds to your choices.</p>
+
+    <!-- Character Creation -->
+    <div id="char-creation">
+      <h1>Create Your Character</h1>
+      <label for="location">Choose your world:</label>
+      <select id="location">
+        <option value="Kholinar">Kholinar</option>
+        <option value="Luthadel">Luthadel</option>
+        <option value="Silverlight">Silverlight</option>
+      </select>
+
+      <label for="role">Choose your role:</label>
+      <select id="role">
+        <option value="Soldier">Soldier</option>
+        <option value="Scholar">Scholar</option>
+        <option value="Seeker">Seeker</option>
+      </select>
+
+      <button id="start-btn">Start Game</button>
     </div>
-    <form id="input-form">
-      <input type="text" id="user-input" placeholder="What do you do?" autocomplete="off" />
-      <button type="submit">Send</button>
-    </form>
+
+    <!-- Game Interface -->
+    <div id="game-interface" style="display:none;">
+      <h1>ShardBorn RPG</h1>
+      <div id="story" class="story-box">
+        <!-- Story content will appear here -->
+      </div>
+      <form id="input-form">
+        <input type="text" id="user-input" placeholder="What do you do?" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+
   </div>
   <script src="script.js"></script>
 </body>

@@ -1,34 +1,63 @@
-document.getElementById("input-form").addEventListener("submit", function(e) {
-  e.preventDefault();
+// Wait until DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  const charCreation = document.getElementById('char-creation');
+  const gameInterface = document.getElementById('game-interface');
+  const startBtn = document.getElementById('start-btn');
+  const storyBox = document.getElementById('story');
+  const inputForm = document.getElementById('input-form');
+  const userInput = document.getElementById('user-input');
 
-  const inputField = document.getElementById("user-input");
-  const storyBox = document.getElementById("story");
-  const userInput = inputField.value.trim();
+  let playerData = {
+    location: null,
+    role: null,
+  };
 
-  if (userInput === "") return;
+  startBtn.addEventListener('click', () => {
+    // Get selected values
+    playerData.location = document.getElementById('location').value;
+    playerData.role = document.getElementById('role').value;
 
-  // Display user input
-  const userParagraph = document.createElement("p");
-  userParagraph.innerHTML = `> ${userInput}`;
-  userParagraph.style.color = "#76c7c0";
-  storyBox.appendChild(userParagraph);
+    // Hide character creation, show game interface
+    charCreation.style.display = 'none';
+    gameInterface.style.display = 'block';
 
-  // Simulated backend response
-  const worldParagraph = document.createElement("p");
-  worldParagraph.innerHTML = `The world responds: "${generateFakeResponse(userInput)}"`;
-  storyBox.appendChild(worldParagraph);
+    // Show intro text based on choices
+    let intro = `You awaken in ${playerData.location}, a ${playerData.role} with a destiny yet to be forged.\n`;
 
-  storyBox.scrollTop = storyBox.scrollHeight;
-  inputField.value = "";
+    if (playerData.location === "Kholinar") {
+      intro += "The storms rage outside the shattered walls of Alethkar’s last bastion.";
+    } else if (playerData.location === "Luthadel") {
+      intro += "The mists curl around the spires. The Final Empire watches.";
+    } else if (playerData.location === "Silverlight") {
+      intro += "Worldhoppers pass silently through the alleys of unknown cities.";
+    }
+
+    storyBox.textContent = intro + "\n\nWhat will you do?";
+
+    // Focus on input
+    userInput.focus();
+  });
+
+  inputForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const command = userInput.value.trim();
+    if (!command) return;
+
+    // Show player command
+    storyBox.textContent += `\n> ${command}`;
+
+    // Simulate game response
+    const response = generateResponse(command, playerData);
+    storyBox.textContent += `\n${response}\n`;
+
+    // Scroll down to bottom
+    storyBox.scrollTop = storyBox.scrollHeight;
+
+    userInput.value = '';
+  });
+
+  function generateResponse(command, playerData) {
+    // Simple placeholder for demo logic
+    return `The world responds: You said "${command}". The mists stir in ${playerData.location}.`;
+  }
 });
-
-function generateFakeResponse(input) {
-  // This simulates a response based on input
-  const templates = [
-    `You feel a strange pull as you say "${input}".`,
-    `The wind whispers back: "${input}"...`,
-    `Your words echo: "${input}". Something stirs.`,
-    `A light flickers as you say "${input}".`
-  ];
-  return templates[Math.floor(Math.random() * templates.length)];
-}
