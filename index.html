@@ -1,33 +1,106 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>ShardBorn RPG</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <title>ShardBorn - Solo Sandbox</title>
+    <style>
+        body {
+            background-color: #1e1e2f;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        select, input[type="text"], button {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            font-size: 1em;
+        }
+        #gameArea {
+            border: 1px solid #444;
+            padding: 15px;
+            height: 300px;
+            overflow-y: auto;
+            background-color: #2e2e3e;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
 </head>
 <body>
-    <div id="startModal" class="modal">
-        <div class="modal-content">
-            <h2>Welcome to ShardBorn RPG</h2>
-            <label>Choose World:</label>
-            <select id="worldSelect">
-                <option value="Roshar">Roshar</option>
-                <option value="Scadrial">Scadrial</option>
-                <option value="Nalthis">Nalthis</option>
-            </select>
-            <label>Choose Background:</label>
-            <select id="backgroundSelect">
-                <option value="Soldier">Soldier</option>
-                <option value="Scholar">Scholar</option>
-                <option value="Worldhopper">Worldhopper</option>
-            </select>
-            <button onclick="startGame()">Begin Adventure</button>
-        </div>
+    <div class="container">
+        <h1>Welcome to ShardBorn</h1>
+        <p>Choose your starting location and role to begin your journey.</p>
+
+        <label for="location">Location:</label>
+        <select id="location">
+            <option value="Kholinar">Kholinar</option>
+            <option value="Urithiru">Urithiru</option>
+            <option value="Luthadel">Luthadel</option>
+            <option value="Silverlight">Silverlight</option>
+        </select>
+
+        <label for="role">Role:</label>
+        <select id="role">
+            <option value="Wanderer">Wanderer</option>
+            <option value="Scholar">Scholar</option>
+            <option value="Soldier">Soldier</option>
+            <option value="Worldhopper">Worldhopper</option>
+        </select>
+
+        <button onclick="startGame()">Start Game</button>
+
+        <div id="gameArea">Your story will begin here...</div>
+
+        <input type="text" id="playerInput" placeholder="What do you do?" onkeypress="handleKey(event)" style="display:none;">
     </div>
-    <div id="gameContainer">
-        <div id="gameOutput"></div>
-        <input type="text" id="gameInput" placeholder="What do you do?" onkeydown="if(event.key === 'Enter'){handleInput();}">
-    </div>
-    <script src="script.js"></script>
+
+    <script>
+        let gameStarted = false;
+
+        function startGame() {
+            const location = document.getElementById('location').value;
+            const role = document.getElementById('role').value;
+            const gameArea = document.getElementById('gameArea');
+            const inputBox = document.getElementById('playerInput');
+
+            gameArea.textContent = `You begin your journey as a ${role} in ${location}.
+`;
+            gameArea.textContent += "The mists stir... What will you do?
+";
+            inputBox.style.display = 'block';
+            inputBox.focus();
+            gameStarted = true;
+        }
+
+        function handleKey(event) {
+            if (event.key === "Enter") {
+                const input = event.target.value.trim();
+                if (input !== "") {
+                    respondToInput(input);
+                    event.target.value = "";
+                }
+            }
+        }
+
+        function respondToInput(input) {
+            const gameArea = document.getElementById('gameArea');
+            gameArea.textContent += `> ${input}
+`;
+            gameArea.textContent += `The world responds to your action: "${input}"...
+`;
+            gameArea.scrollTop = gameArea.scrollHeight;
+        }
+    </script>
 </body>
 </html>
