@@ -1,47 +1,132 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ShardBorn RPG</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>ShardBorn Character Creator</title>
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    h1 {
+      margin-bottom: 1rem;
+      color: #90caf9;
+    }
+    select, input, button {
+      padding: 0.5rem;
+      margin: 0.5rem;
+      font-size: 1rem;
+      width: 300px;
+      border-radius: 0.5rem;
+      border: none;
+    }
+    button {
+      background-color: #90caf9;
+      color: #000;
+      cursor: pointer;
+    }
+    .field-group {
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-
-    <!-- Character Creation -->
-    <div id="char-creation">
-      <h1>Create Your Character</h1>
-      <label for="location">Choose your world:</label>
-      <select id="location">
-        <option value="Kholinar">Kholinar</option>
-        <option value="Luthadel">Luthadel</option>
-        <option value="Silverlight">Silverlight</option>
-      </select>
-
-      <label for="role">Choose your role:</label>
-      <select id="role">
-        <option value="Soldier">Soldier</option>
-        <option value="Scholar">Scholar</option>
-        <option value="Seeker">Seeker</option>
-      </select>
-
-      <button id="start-btn">Start Game</button>
-    </div>
-
-    <!-- Game Interface -->
-    <div id="game-interface" style="display:none;">
-      <h1>ShardBorn RPG</h1>
-      <div id="story" class="story-box">
-        <!-- Story content will appear here -->
-      </div>
-      <form id="input-form">
-        <input type="text" id="user-input" placeholder="What do you do?" autocomplete="off" />
-        <button type="submit">Send</button>
-      </form>
-    </div>
-
+  <h1>Create Your Character</h1>
+  <div class="field-group">
+    <input type="text" id="name" placeholder="Name" />
   </div>
-  <script src="script.js"></script>
+  <div class="field-group">
+    <label for="world">Origin World</label><br />
+    <select id="world" onchange="updateLocations()">
+      <option value="Roshar">Roshar</option>
+      <option value="Scadrial">Scadrial</option>
+      <option value="Nalthis">Nalthis</option>
+      <option value="Taldain">Taldain</option>
+      <option value="Threnody">Threnody</option>
+      <option value="First of the Sun">First of the Sun</option>
+      <option value="Sel">Sel</option>
+      <option value="Yolen" disabled>Yolen (Locked)</option>
+    </select>
+  </div>
+  <div class="field-group">
+    <label for="background">Role/Background</label><br />
+    <select id="background">
+      <option>Soldier</option>
+      <option>Scholar</option>
+      <option>Worldhopper</option>
+      <option>Awakener</option>
+      <option>Knight Radiant (Seeker)</option>
+      <option>Kandra (Disguised)</option>
+      <option>Thief</option>
+      <option>Elsecaller (In Training)</option>
+    </select>
+  </div>
+  <div class="field-group">
+    <label for="location">Start Location</label><br />
+    <select id="location"></select>
+  </div>
+  <div class="field-group">
+    <label for="goal">Motivation / Goal</label><br />
+    <select id="goal">
+      <option>Seek Justice</option>
+      <option>Uncover Ancient Secrets</option>
+      <option>Track a Lost Artifact</option>
+      <option>Avenge a Loved One</option>
+      <option>Serve a Shard</option>
+      <option value="custom">Enter My Own</option>
+    </select>
+    <input type="text" id="customGoal" placeholder="Enter your goal..." style="display:none;" />
+  </div>
+  <button onclick="startGame()">Begin Journey</button>
+
+  <script>
+    const locations = {
+      "Roshar": ["Kholinar", "Urithiru", "Shattered Plains"],
+      "Scadrial": ["Luthadel", "Elendel", "Roughs"],
+      "Nalthis": ["Hallandren", "T'Telir"],
+      "Taldain": ["Dayside", "Darkside"],
+      "Threnody": ["Forest of Hell", "Safe Village"],
+      "First of the Sun": ["Patji", "Dock Islands"],
+      "Sel": ["Arelon", "MaiPon"]
+    };
+
+    function updateLocations() {
+      const world = document.getElementById("world").value;
+      const locationSelect = document.getElementById("location");
+      locationSelect.innerHTML = "";
+      (locations[world] || []).forEach(loc => {
+        const opt = document.createElement("option");
+        opt.value = loc;
+        opt.innerText = loc;
+        locationSelect.appendChild(opt);
+      });
+    }
+
+    function startGame() {
+      const name = document.getElementById("name").value;
+      const world = document.getElementById("world").value;
+      const background = document.getElementById("background").value;
+      const location = document.getElementById("location").value;
+      const goalDropdown = document.getElementById("goal");
+      const goal = goalDropdown.value === "custom"
+        ? document.getElementById("customGoal").value
+        : goalDropdown.value;
+
+      const characterSummary = \`Name: \${name}\nWorld: \${world}\nBackground: \${background}\nLocation: \${location}\nGoal: \${goal}\`;
+      alert("Character Created!\n\n" + characterSummary);
+    }
+
+    document.getElementById("goal").addEventListener("change", function() {
+      document.getElementById("customGoal").style.display = this.value === "custom" ? "block" : "none";
+    });
+
+    updateLocations(); // Initialize
+  </script>
 </body>
 </html>
