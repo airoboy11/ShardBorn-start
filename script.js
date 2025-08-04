@@ -1,41 +1,34 @@
-let state = {
-    world: "",
-    background: "",
-    flags: {},
-    inventory: []
-};
+document.getElementById("input-form").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-function startGame() {
-    state.world = document.getElementById("worldSelect").value;
-    state.background = document.getElementById("backgroundSelect").value;
-    document.getElementById("startModal").style.display = "none";
-    addOutput(`You awaken in ${state.world}, a ${state.background} caught in something greater than yourself...`);
-}
+  const inputField = document.getElementById("user-input");
+  const storyBox = document.getElementById("story");
+  const userInput = inputField.value.trim();
 
-function handleInput() {
-    const input = document.getElementById("gameInput");
-    const value = input.value.trim();
-    if (!value) return;
-    addOutput("> " + value);
-    respondToInput(value);
-    input.value = "";
-}
+  if (userInput === "") return;
 
-function addOutput(text) {
-    const output = document.getElementById("gameOutput");
-    output.innerText += "\n" + text;
-    output.scrollTop = output.scrollHeight;
-}
+  // Display user input
+  const userParagraph = document.createElement("p");
+  userParagraph.innerHTML = `> ${userInput}`;
+  userParagraph.style.color = "#76c7c0";
+  storyBox.appendChild(userParagraph);
 
-function respondToInput(text) {
-    const lc = text.toLowerCase();
-    if (lc.includes("look")) {
-        addOutput("You scan the surroundings. The air feels charged with Investiture.");
-    } else if (lc.includes("talk")) {
-        addOutput("You attempt to speak. A figure emerges from the mist, listening...");
-    } else if (lc.includes("go")) {
-        addOutput("You step into the unknown, feeling the pull of distant forces.");
-    } else {
-        addOutput("Nothing happens. The Shards watch silently.");
-    }
+  // Simulated backend response
+  const worldParagraph = document.createElement("p");
+  worldParagraph.innerHTML = `The world responds: "${generateFakeResponse(userInput)}"`;
+  storyBox.appendChild(worldParagraph);
+
+  storyBox.scrollTop = storyBox.scrollHeight;
+  inputField.value = "";
+});
+
+function generateFakeResponse(input) {
+  // This simulates a response based on input
+  const templates = [
+    `You feel a strange pull as you say "${input}".`,
+    `The wind whispers back: "${input}"...`,
+    `Your words echo: "${input}". Something stirs.`,
+    `A light flickers as you say "${input}".`
+  ];
+  return templates[Math.floor(Math.random() * templates.length)];
 }

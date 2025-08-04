@@ -1,38 +1,60 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    margin: 0;
-    padding: 0;
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
-#gameContainer {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  background-color: #1f1f1f;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
-#gameOutput {
-    flex-grow: 1;
-    padding: 1rem;
-    background: #fff;
-    overflow-y: auto;
-    white-space: pre-wrap;
+
+h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #76c7c0;
 }
-#gameInput {
-    padding: 1rem;
-    border: none;
-    border-top: 1px solid #ccc;
-    font-size: 1rem;
+
+.story-box {
+  background-color: #2a2a2a;
+  padding: 1rem;
+  border-radius: 8px;
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
 }
-.modal {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+form {
+  display: flex;
 }
-.modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    text-align: center;
+
+#user-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 6px 0 0 6px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #76c7c0;
+  color: black;
+  border: none;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #5ba9a5;
 }

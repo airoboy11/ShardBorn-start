@@ -1,105 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ShardBorn RPG</title>
-  <style>
-    body {
-      font-family: 'Georgia', serif;
-      background-color: #0f0f0f;
-      color: #e0e0e0;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-    header {
-      padding: 1rem;
-      background-color: #1f1f1f;
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #ffffff;
-    }
-    #game-container {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 1rem;
-      overflow-y: auto;
-    }
-    #output {
-      flex-grow: 1;
-      padding: 1rem;
-      background-color: #121212;
-      border: 1px solid #333;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      white-space: pre-wrap;
-      overflow-y: auto;
-    }
-    #input-form {
-      display: flex;
-      gap: 0.5rem;
-    }
-    #player-input {
-      flex-grow: 1;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      border: none;
-      background-color: #1e1e1e;
-      color: white;
-    }
-    #submit-btn {
-      padding: 0.75rem 1rem;
-      background-color: #3e8ef7;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    #submit-btn:hover {
-      background-color: #2f76d2;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>ShardBorn RPG</header>
-  <div id="game-container">
-    <div id="output">
-      <p><strong>Your story begins in the mists...</strong></p>
+  <div class="container">
+    <h1>ShardBorn RPG</h1>
+    <div id="story" class="story-box">
+      <p>Welcome to ShardBorn. The world responds to your choices.</p>
     </div>
     <form id="input-form">
-      <input type="text" id="player-input" placeholder="What do you do?" autocomplete="off" />
-      <button type="submit" id="submit-btn">Send</button>
+      <input type="text" id="user-input" placeholder="What do you do?" autocomplete="off" />
+      <button type="submit">Send</button>
     </form>
   </div>
-
-  <script>
-    const form = document.getElementById('input-form');
-    const input = document.getElementById('player-input');
-    const output = document.getElementById('output');
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const userInput = input.value.trim();
-      if (userInput === '') return;
-
-      output.innerHTML += `\n> ${userInput}`;
-      setTimeout(() => {
-        output.innerHTML += `\nThe mists whisper: "${generateFakeResponse(userInput)}"\n`;
-        output.scrollTop = output.scrollHeight;
-      }, 500);
-
-      input.value = '';
-    });
-
-    function generateFakeResponse(input) {
-      return `You said "${input}", and the world stirs...`;
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
