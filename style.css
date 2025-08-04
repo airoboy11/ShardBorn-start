@@ -1,28 +1,38 @@
-
 body {
-  font-family: Georgia, serif;
-  background: #fdf6e3;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
-.container {
-  max-width: 600px;
-  width: 100%;
+#gameContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
-#game-log {
-  background: #fff;
-  border: 1px solid #ccc;
-  height: 300px;
-  overflow-y: auto;
-  padding: 1rem;
-  margin-bottom: 1rem;
+#gameOutput {
+    flex-grow: 1;
+    padding: 1rem;
+    background: #fff;
+    overflow-y: auto;
+    white-space: pre-wrap;
 }
-input, button {
-  font-size: 1rem;
-  padding: 0.5rem;
-  width: 100%;
-  margin-top: 0.5rem;
+#gameInput {
+    padding: 1rem;
+    border: none;
+    border-top: 1px solid #ccc;
+    font-size: 1rem;
+}
+.modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
 }

@@ -1,26 +1,41 @@
+let state = {
+    world: "",
+    background: "",
+    flags: {},
+    inventory: []
+};
 
-const log = document.getElementById("game-log");
-const input = document.getElementById("player-input");
-
-function appendToLog(text) {
-  const p = document.createElement("p");
-  p.textContent = text;
-  log.appendChild(p);
-  log.scrollTop = log.scrollHeight;
+function startGame() {
+    state.world = document.getElementById("worldSelect").value;
+    state.background = document.getElementById("backgroundSelect").value;
+    document.getElementById("startModal").style.display = "none";
+    addOutput(`You awaken in ${state.world}, a ${state.background} caught in something greater than yourself...`);
 }
 
-function sendInput() {
-  const userInput = input.value.trim();
-  if (!userInput) return;
-  appendToLog("> " + userInput);
-  input.value = "";
-
-  // Placeholder AI logic
-  setTimeout(() => {
-    appendToLog("The world responds: " + mockResponse(userInput));
-  }, 500);
+function handleInput() {
+    const input = document.getElementById("gameInput");
+    const value = input.value.trim();
+    if (!value) return;
+    addOutput("> " + value);
+    respondToInput(value);
+    input.value = "";
 }
 
-function mockResponse(input) {
-  return "You said: '" + input + "'. Something happens in the mists...";
+function addOutput(text) {
+    const output = document.getElementById("gameOutput");
+    output.innerText += "\n" + text;
+    output.scrollTop = output.scrollHeight;
+}
+
+function respondToInput(text) {
+    const lc = text.toLowerCase();
+    if (lc.includes("look")) {
+        addOutput("You scan the surroundings. The air feels charged with Investiture.");
+    } else if (lc.includes("talk")) {
+        addOutput("You attempt to speak. A figure emerges from the mist, listening...");
+    } else if (lc.includes("go")) {
+        addOutput("You step into the unknown, feeling the pull of distant forces.");
+    } else {
+        addOutput("Nothing happens. The Shards watch silently.");
+    }
 }

@@ -1,20 +1,33 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ShardBorn RPG</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>ShardBorn RPG</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to ShardBorn RPG</h1>
-    <p>Solo sandbox mode loading...</p>
-    <div id="game-log"></div>
-    <input type="text" id="player-input" placeholder="What do you want to do?" />
-    <button onclick="sendInput()">Send</button>
-  </div>
-  <script src="script.js"></script>
+    <div id="startModal" class="modal">
+        <div class="modal-content">
+            <h2>Welcome to ShardBorn RPG</h2>
+            <label>Choose World:</label>
+            <select id="worldSelect">
+                <option value="Roshar">Roshar</option>
+                <option value="Scadrial">Scadrial</option>
+                <option value="Nalthis">Nalthis</option>
+            </select>
+            <label>Choose Background:</label>
+            <select id="backgroundSelect">
+                <option value="Soldier">Soldier</option>
+                <option value="Scholar">Scholar</option>
+                <option value="Worldhopper">Worldhopper</option>
+            </select>
+            <button onclick="startGame()">Begin Adventure</button>
+        </div>
+    </div>
+    <div id="gameContainer">
+        <div id="gameOutput"></div>
+        <input type="text" id="gameInput" placeholder="What do you do?" onkeydown="if(event.key === 'Enter'){handleInput();}">
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
